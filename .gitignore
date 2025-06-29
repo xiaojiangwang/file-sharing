@@ -39,3 +39,4 @@ out/
 file-sharing-ui
 
 data
+src/main/resources/static/*
