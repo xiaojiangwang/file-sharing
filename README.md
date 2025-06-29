@@ -199,6 +199,71 @@ docker-compose up -d
 | APP_MAX_FILE_SIZE | 200 | 最大文件大小                                            |
 | DDL_AUTO          | update | 控制数据库表结构的自动化管理。create：​​每次启动删除所有表并重新创建​​（清空历史数据！） |
 
+### 自动化构建Docker镜像
+
+#### 配置 Docker Hub 凭据
+
+在 GitHub 仓库中设置以下 Secrets：
+
+1. 进入 GitHub 仓库页面
+2. 点击 `Settings` -> `Secrets and variables` -> `Actions`
+3. 添加以下 Repository secrets：
+   - `DOCKER_USERNAME`: 你的 Docker Hub 用户名
+   - `DOCKER_PASSWORD`: 你的 Docker Hub 访问令牌（推荐）或密码
+
+#### 修改 Docker 镜像名称
+
+编辑 `.github/workflows/docker-build.yml` 文件，将以下行中的镜像名称替换为你的：
+
+```yaml
+env:
+  DOCKER_IMAGE: your-dockerhub-username/file-sharing-app
+```
+
+改为：
+```yaml
+env:
+  DOCKER_IMAGE: 你的用户名/你的镜像名
+```
+
+#### 获取 Docker Hub 访问令牌（推荐）
+
+1. 登录 Docker Hub
+2. 进入 `Account Settings` -> `Security`
+3. 点击 `New Access Token`
+4. 输入令牌名称，选择权限（建议选择 `Read, Write, Delete`）
+5. 复制生成的令牌，用作 `DOCKER_PASSWORD`
+
+#### 使用方法
+
+##### 手动触发构建
+
+1. 进入 GitHub 仓库页面
+2. 点击 `Actions` 标签
+3. 选择 `Build and Push Docker Image` 工作流
+4. 点击 `Run workflow` 按钮
+5. 配置参数：
+   - **tag**: Docker 镜像标签（默认: latest）
+   - **push_to_hub**: 是否推送到 Docker Hub（默认: true）
+6. 点击 `Run workflow` 开始构建
+
+##### 工作流功能
+
+- ✅ 自动设置 Java 21 环境
+- ✅ 使用 Gradle 构建项目
+- ✅ 构建 Docker 镜像
+- ✅ 推送到 Docker Hub
+- ✅ 支持自定义标签
+- ✅ 支持构建缓存优化
+- ✅ 自动生成镜像元数据
+
+##### 生成的镜像标签
+
+工作流会自动生成以下标签：
+- 用户指定的标签（默认 `latest`）
+- 主分支会额外打上 `latest` 标签
+
+
 ## 配置说明
 
 ## 数据存储
