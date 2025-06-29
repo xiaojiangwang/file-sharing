@@ -146,13 +146,13 @@ docker run -d \
   -v $(pwd)/config:/app/config \
   -e DB_URL=jdbc:h2:file:/app/data/filedb \
   -e DB_USERNAME=sa \
-  -e DB_PASSWORD=1qaz!QAZ \
+  -e DB_PASSWORD='1qaz!QAZ' \
   -e SERVER_PORT=8080 \
   -e MAX_FILE_SIZE=200MB \
   -e MAX_REQUEST_SIZE=200MB \
   -e APP_MAX_FILE_SIZE=200 \
   -e DDL_AUTO=update \
-  wangxiaojiang10088/file-sharing:v1.0.0
+  wangxiaojiang10088/file-sharing:latest
 ```
 
 ### Docker Compose部署
@@ -162,7 +162,7 @@ docker run -d \
 version: '3.8'
 services:
   file-sharing:
-    image: wangxiaojiang10088/file-sharing:v1.0.0
+    image: wangxiaojiang10088/file-sharing:latest
     build: .
     ports:
       - "8080:8080"
@@ -172,7 +172,7 @@ services:
     environment:
       - DB_URL=jdbc:h2:file:/app/data/filedb
       - DB_USERNAME=sa
-      - DB_PASSWORD=1qaz!QAZ
+      - DB_PASSWORD='1qaz!QAZ'
       - SERVER_PORT=8080
       - MAX_FILE_SIZE=200MB
       - MAX_REQUEST_SIZE=200MB
