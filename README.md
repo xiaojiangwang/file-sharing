@@ -152,7 +152,7 @@ docker run -d \
   -e MAX_REQUEST_SIZE=200MB \
   -e APP_MAX_FILE_SIZE=200 \
   -e DDL_AUTO=update \
-  file-sharing
+  wangxiaojiang10088/file-sharing:v1.0.0
 ```
 
 ### Docker Compose部署
@@ -162,6 +162,7 @@ docker run -d \
 version: '3.8'
 services:
   file-sharing:
+    image: wangxiaojiang10088/file-sharing:v1.0.0
     build: .
     ports:
       - "8080:8080"
